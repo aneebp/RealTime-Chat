@@ -6,3 +6,6 @@ class ChatMessageCreateForm(ModelForm):
     class Meta:
         model = GroupMessage
         fields = ['body']
+        widgets = {
+            'body':forms.TextInput(attrs={'placeholder':'Message...'})
+        }
