@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def Home(request):
     chat_group = get_object_or_404(GroupChat,group_name='TalkAboutPython')
+    #to get letest 30 messages in group
     chat_message = chat_group.chat_message.all()[:30]
     form = ChatMessageCreateForm()
     if request.htmx:

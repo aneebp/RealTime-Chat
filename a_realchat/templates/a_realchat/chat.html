@@ -17,9 +17,12 @@
                 <!-- These HX attributes are used to make the form submission process more dynamic and asynchronous, without the need for full page reloads. When the form is submitted, JavaScript (likely provided by the HX library) intercepts the submission,
                      sends the form data to the server via an AJAX request, 
                      and then updates the specified target element with the response from the server.-->
+                     {% comment %} hx-post="{% url 'home' %}" hx-target="#chat_messages" hx-swap="beforeend" _="on htmx:afterRequest reset() me" / use this if your not connecting with websocket {% endcomment %}
                 <form id="chat_message_form" class="w-full" 
-                hx-post="{% url 'home' %}" hx-target="#chat_messages" hx-swap="beforeend"
-                _="on htmx:afterRequest reset() me"
+                        hx-ext="ws"
+                        ws-connect = "/ws/chatroom/TalkAboutPython"
+                        ws-send
+                        _="on htmx:wsAfterSend reset() me"
                 >
                     {% csrf_token %}
                     {{ form }}
